@@ -1,0 +1,35 @@
+video {
+  transform: rotateY(180deg);
+  height: 500px;
+}
+
+#crop {
+  height: 500px;
+  width: 500px;
+  border-radius: 16px;
+  padding-left: -250px;
+}
+
+body {
+  text-align: center;
+}
+
+#title {
+  border: 2px solid black;
+}
+
+#topbar {
+  border: 2px solid black;
+}
+
+#camera {
+  border: 2px solid black;
+}
+
+#typeText {
+  border: 2px solid black;
+}
+
+#progress {
+  border: 2px solid black;
+}

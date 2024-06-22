@@ -20,6 +20,20 @@ body {
 
 #topbar {
   border: 2px solid black;
+  display: grid;
+  font-size: .75rem;
+  gap: .5em;
+  grid-auto-flow: column;
+  height: -moz-max-content;
+  height: max-content;
+  width: 100%;
+  transition: opacity .125s;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
 }
 
 #camera {

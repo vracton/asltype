@@ -72,5 +72,5 @@
             classPrediction = prediction[i].className
           }
         }
-        document.getElementById("label-container").innerHTML = classPrediction
+        console.log(classPrediction);
     }

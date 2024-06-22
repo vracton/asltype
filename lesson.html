@@ -9,8 +9,32 @@
   </head>
   <body>
     <!--<button type="button" onclick="init()">Start</button>-->
-    <div id=""><video autoplay></video></div>
-    <div id="label-container"></div>
+    <div id="title">ASLType</div>
+    <div id="topbar">
+      <div class="row">
+        <div id="charSelect">
+          <button id="letters">letters</button>
+          <button id="numbers">numbers</button>
+          <button id="words">words</button>
+        </div>
+        <div id="timeSelect">
+          <button id="15s">15s</button>
+          <button id="30s">30s</button>
+          <button id="60s">60s</button>
+        </div>
+        <div id="statsMenu">
+          <div id="time"><p>30s</p></div>
+          <div id="wpm"><p>0wpm</p></div>
+          <div id="acc"><p>0%</p></div>
+        </div>
+        <div id="trainSelect">
+          <button id="train">train</button>
+        </div>
+      </div>
+    </div>
+    <div id="camera"><!--<video autoplay></video>--></div>
+    <div id="typeText"></div>
+    <div id="progress"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>

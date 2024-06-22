@@ -6,7 +6,8 @@ body {
   text-align: center;
   background-color: #080808;
   color: #e5e3df;
-  /*overflow: hidden;*/
+  user-select: none;
+  overflow: hidden;
 }
 
 #title {
@@ -120,6 +121,22 @@ video {
     line-height: 1em;
     margin: .25em;
     font-weight: bold;
+    padding: 0;
+    gap: 0px;
+    word-spacing: 2px;
+    
+}
+
+.letter {
+  display: inline-block;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  color: #949290;
+}
+
+.letter.done {
+  color: #8253da;
 }
 
 #progress {

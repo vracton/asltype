@@ -6,6 +6,7 @@ body {
   text-align: center;
   background-color: #080808;
   color: #e5e3df;
+  /*overflow: hidden;*/
 }
 
 #title {
@@ -15,7 +16,7 @@ body {
   background: -webkit-linear-gradient(-86deg, #eeff00 25%, #ec7a7a 53%, #09E5C3 75%);
   -webkit-background-clip: text;
   -webkit-text-stroke: 4px transparent;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
 }
 
 #topbar {
@@ -28,13 +29,13 @@ body {
   width: 100%;
   transition: opacity .125s;
   justify-content: space-around;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .row {
   display: flex;
-  background-color: #1f2122;
-  border: 2px solid #7f7669;
+  background-color: #292c2d;
+  border: 2px solid #c9c4bd;
   border-radius: 16px;
   height: 35px;
   padding-left: 3px;
@@ -45,20 +46,20 @@ body {
   margin-top: 5px;
   height: calc(100% - 10px);
   width: 5px;
-  background-color: #080808;
+  background-color: #1f2122;
   border-radius: 8px;
   margin-left: 4px;
   margin-right: 4px;
 }
 
 button {
-  margin-top: 3px;
+  margin-top: 4px;
   border: none;
-  background-color: #1f2122;
+  background-color: #292c2d;
   color: #bcbab7;
   cursor: pointer;
   font-size: 1.5em;
-  border-radius: 16px;
+  border-radius: 12px;
   transition: 0.3s;
 }
 
@@ -75,8 +76,18 @@ button.enabled {
   color: #e5e3df;
 }
 
+#statsMenu > button {
+  cursor:default;
+  color: #474848;
+}
+
+#statsMenu > button:hover {
+  color: #474848;
+}
+
 #camera {
-  border: 2px solid #7f7669;
+  margin-left: 9.5%;
+  border: 2px solid #c9c4bd;
   height: 500px;
   width: 500px;
   border-radius: 16px;
@@ -90,37 +101,58 @@ video {
 }
 
 #typeText {
-  border: 2px solid #7f7669;
+  border: 2px solid #c9c4bd;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   border-radius: 16px;
   align-content: flex-start;
+  position: absolute;
+  height: 406px;
+  width: 500px;
+  bottom:calc(4% + 92px);
+  right:9.5%;
 }
 
 .word {
   position: relative;
-    font-size: 1em;
+    font-size: 2em;
     line-height: 1em;
     margin: .25em;
+    font-weight: bold;
 }
 
 #progress {
-  border: 2px solid #7f7669;
+  border: 2px solid #c9c4bd;
   border-radius: 16px;
+  position: absolute;
+  height: 66px;
+  width: 500px;
+  bottom:calc(4% + 4px);
+  right:9.5%;
+}
+
+#pTitle {
+  margin:0;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  font-weight: bold;
 }
 
 .container { 
-  background-color: rgb(192, 192, 192); 
-  width: 80%; 
-  border-radius: 15px; 
+  background-color: #292c2d; 
+  width: calc(100% - 16px);
+  margin-left: 8px;
+  height: 25px;
+  border-radius: 8px;
 } 
 
 .skill { 
-  background-color: rgb(116, 194, 92); 
+  background-color: rgb(34, 130, 44); 
   color: white; 
-  padding: 1%; 
   text-align: right; 
-  font-size: 20px; 
-  border-radius: 15px; 
+  font-size: 20px;
+  width: 30%;
+  height: 25px;
+  border-radius: 8px; 
 } 

@@ -1,6 +1,7 @@
     // More API functions here:
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-    const URL = "https://teachablemachine.withgoogle.com/models/sx4-6ZMhS/";
+    //const URL = "https://teachablemachine.withgoogle.com/models/sx4-6ZMhS/";
+    const URL = "https://teachablemachine.withgoogle.com/models/fa6CmYcOv/"
     const constraints = {
       video: {
         facingMode: "user",
@@ -16,11 +17,17 @@
         },
       },
     };
+    let canvas
     window.onload = () => {
+      document.querySelector("video").style.marginLeft = -(document.querySelector("video").offsetWidth-500)/2
       if ("mediaDevices" in navigator && navigator.mediaDevices.getUserMedia) {
         startStream(constraints);
       }
+      canvas = document.getElementById("c")
     };
+    window.onresize = () =>{
+      document.querySelector("video").style.marginLeft = -(document.querySelector("video").offsetWidth-500)/2
+    }
     const video = document.querySelector("video");
     const startStream = async (constraints) => {
       let stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -49,14 +56,20 @@
 
         // append elements to the DOM
         // document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) { // and class labels
-            labelContainer.appendChild(document.createElement("div"));
-        }
+        // labelContainer = document.getElementById("label-container");
+        // for (let i = 0; i < maxPredictions; i++) { // and class labels
+        //     labelContainer.appendChild(document.createElement("div"));
+        // }
     }
 
     async function loop() {
         //webcam.update(); // update the webcam frame
+        canvas.width = 500;
+    canvas.height = 500;
+    canvas.getContext("2d").translate(500, 0);
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    canvas.getContext("2d").scale(-1, 1);
+    canvas.getContext("2d").drawImage(video, (document.querySelector("video").offsetWidth-80)/2, 0, 720, 720, 0, 0, 500, 500)
         await predict();
         window.requestAnimationFrame(loop);
     }
@@ -64,7 +77,7 @@
     // run the webcam image through the image model
     async function predict() {
         // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(video);
+        const prediction = await model.predict(canvas);
         let highest = -1, classPrediction = ""
         for (let i = 0; i < maxPredictions; i++) {
           if (prediction[i].probability > highest){
@@ -72,5 +85,5 @@
             classPrediction = prediction[i].className
           }
         }
-        console.log(classPrediction);
+        document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 2 Seconds"
     }

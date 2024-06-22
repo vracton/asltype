@@ -17,22 +17,26 @@
           <button id="numbers">numbers</button>
           <button id="words">words</button>
         </div>
+        <div class="spacer"></div>
         <div id="timeSelect">
-          <button id="15s">15s</button>
+          <button class="enabled" id="15s">15s</button>
           <button id="30s">30s</button>
           <button id="60s">60s</button>
         </div>
+        <div class="spacer"></div>
         <div id="statsMenu">
           <button id="time">30s</button>
           <button id="wpm">0wpm</button>
           <button id="acc">0%</button>
         </div>
+        <div class="spacer"></div>
         <div id="trainSelect">
           <button id="train">train</button>
         </div>
       </div>
     </div>
     <div id="camera"><video autoplay></video></div>
+    <canvas style="display:none;" id="c" width="500" height="500"></canvas>
     <div id="typeText">
       <div class="word">
         <div class="letter">p</div>
@@ -45,7 +49,7 @@
       </div>
     </div>
     <div id="progress">
-      <p>Hold for 2 seconds</p>
+      <p id="pTitle">Hold for 2 seconds</p>
       <div class="container"> 
         <div class="skill php">60%</div> 
     </div> 

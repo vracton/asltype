@@ -39,8 +39,8 @@ body {
   border: 2px solid #c9c4bd;
   border-radius: 16px;
   height: 35px;
-  padding-left: 3px;
-  padding-right: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .spacer {
@@ -72,8 +72,12 @@ button.enabled:hover {
   color: #bcbab7;
 }
 
+#train:hover{
+  text-decoration: wavy underline;
+}
+
 button.enabled {
-  background-color: #8253da;
+  background-color: #2c5fb8;
   color: #e5e3df;
 }
 
@@ -136,7 +140,11 @@ video {
 }
 
 .letter.done {
-  color: #8253da;
+  color: #2c5fb8;
+}
+
+.button.wrong {
+  color: #b82c2c;
 }
 
 #progress {

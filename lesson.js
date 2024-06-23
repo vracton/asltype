@@ -1,7 +1,6 @@
     // More API functions here:
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
     //const URL = "https://teachablemachine.withgoogle.com/models/sx4-6ZMhS/";
-    const URL = "https://teachablemachine.withgoogle.com/models/fa6CmYcOv/"
     const constraints = {
       video: {
         facingMode: "user",
@@ -25,41 +24,50 @@
       }
       canvas = document.getElementById("c")
     };
+
     window.onresize = () =>{
       document.querySelector("video").style.marginLeft = -(document.querySelector("video").offsetWidth-500)/2
     }
+
     const video = document.querySelector("video");
     const startStream = async (constraints) => {
       let stream = await navigator.mediaDevices.getUserMedia(constraints);
       video.srcObject = stream;
       init()
     }
-    let model, webcam, labelContainer, maxPredictions;
+
+    document.getElementById("letters").onclick = () => {
+      if (!document.getElementById("letters").classList.contains("enabled")){
+        document.getElementById("letters").classList.add("enabled")
+        document.getElementById("numbers").classList.remove("enabled")
+        isAlpha = true
+      }
+    }
+
+    document.getElementById("numbers").onclick = () => {
+      if (!document.getElementById("numbers").classList.contains("enabled")){
+        document.getElementById("numbers").classList.add("enabled")
+        document.getElementById("letters").classList.remove("enabled")
+        isAlpha = false
+      }
+    }
+
+    let aModel,nModel, webcam, labelContainer, aMaxPredictions, nMaxPredictions, isAlpha;
     async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
+      const NumberURL = "https://teachablemachine.withgoogle.com/models/33Jw6otUj/"
+      const AlphaURL = "https://teachablemachine.withgoogle.com/models/fa6CmYcOv/"
+      const aModelURL = AlphaURL + "model.json";
+      const aMetadataURL = AlphaURL + "metadata.json";
+      const nModelURL = NumberURL + "model.json";
+      const nMetadataURL = NumberURL + "metadata.json";
         
-    
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
+      aModel = await tmImage.load(aModelURL, aMetadataURL);
+      nModel = await tmImage.load(nModelURL, nMetadataURL);
+      aMaxPredictions = aModel.getTotalClasses();
+      nMaxPredictions = nModel.getTotalClasses();
 
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        // webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        // await webcam.setup(); // request access to the webcam
-        // await webcam.play();
-        window.requestAnimationFrame(loop);
-
-        // append elements to the DOM
-        // document.getElementById("webcam-container").appendChild(webcam.canvas);
-        // labelContainer = document.getElementById("label-container");
-        // for (let i = 0; i < maxPredictions; i++) { // and class labels
-        //     labelContainer.appendChild(document.createElement("div"));
-        // }
+      isAlpha = true
+      window.requestAnimationFrame(loop);
     }
 
     async function loop() {
@@ -77,13 +85,17 @@
     // run the webcam image through the image model
     async function predict() {
         // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(canvas);
-        let highest = -1, classPrediction = ""
-        for (let i = 0; i < maxPredictions; i++) {
-          if (prediction[i].probability > highest){
-            highest = prediction[i].probability
-            classPrediction = prediction[i].className
+        try {
+          const prediction = await (isAlpha?aModel:nModel).predict(canvas);
+          let highest = -1, classPrediction = ""
+          for (let i = 0; i < (isAlpha?aMaxPredictions:nMaxPredictions); i++) {
+            if (prediction[i].probability > highest){
+              highest = prediction[i].probability
+              classPrediction = prediction[i].className
+            }
           }
+          document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 2 Seconds"
+        } catch (e){
+          console.log(e)
         }
-        document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 2 Seconds"
     }

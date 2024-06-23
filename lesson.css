@@ -123,12 +123,9 @@ video {
   position: relative;
     font-size: 2em;
     line-height: 1em;
-    margin: .25em;
+    margin: .15em;
+    margin-left: .25em;
     font-weight: bold;
-    padding: 0;
-    gap: 0px;
-    word-spacing: 2px;
-    
 }
 
 .letter {
@@ -177,7 +174,7 @@ video {
   color: white; 
   text-align: right; 
   font-size: 20px;
-  width: 30%;
+  width: 0%;
   height: 25px;
   border-radius: 8px; 
 } 

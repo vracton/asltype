@@ -1,7 +1,19 @@
     // More API functions here:
     // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-    //const URL = "https://teachablemachine.withgoogle.com/models/sx4-6ZMhS/";
-    const URL = "https://teachablemachine.withgoogle.com/models/fa6CmYcOv/"
+    //const URL = "https://teachablemachine.withgoogle.com/models/33Jw6otUj/";
+
+    let numval = false; 
+    document.getElementById('numbers').addEventListener('click', function() {
+        numval = true; 
+        updateURL(); 
+    });
+    
+    document.getElementById('letters').addEventListener('click', function() {
+        numval = false;
+        updateURL();
+    });
+
+    
     const constraints = {
       video: {
         facingMode: "user",
@@ -34,18 +46,29 @@
       video.srcObject = stream;
       init()
     }
-    let model, webcam, labelContainer, maxPredictions;
+    function updateURL() {
+        numval = !numval
+        console.log(numval)
+        console.log("Updated URL:", URL); }
+    let AModel,NModel, webcam, labelContainer, maxPredictions;
     async function init() {
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-        
-    
-        // load the model and metadata
+        const NumberURL = "https://teachablemachine.withgoogle.com/models/33Jw6otUj/";
+        const AlphaURL = "https://teachablemachine.withgoogle.com/models/fa6CmYcOv/";
+        const NummodelURL = NumberURL + "model.json";
+        const NummetadataURL = NumberURL + "metadata.json";
+        const AlpmodelURL = AlphaURL + "model.json";
+        const AlpmetadataURL = AlphaURL + "metadata.json";
+
+        // load the model and metadatas
         // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
         // or files from your local hard drive
         // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
+        
+
+        AModel = await tmImage.load(AlpmodelURL, AlpmetadataURL);
+        NModel = await tmImage.load(NummodelURL, NummetadataURL);
+        
+        maxPredictions = (numval?AModel:NModel).getTotalClasses();
 
         // Convenience function to setup a webcam
         const flip = true; // whether to flip the webcam
@@ -77,7 +100,7 @@
     // run the webcam image through the image model
     async function predict() {
         // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(canvas);
+        const prediction = await (numval?AModel:NModel).predict(canvas);
         let highest = -1, classPrediction = ""
         for (let i = 0; i < maxPredictions; i++) {
           if (prediction[i].probability > highest){
@@ -85,5 +108,5 @@
             classPrediction = prediction[i].className
           }
         }
-        document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 2 Seconds"
+        document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 3 Seconds"
     }

@@ -1,39 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>lesson</title>
     <link rel="stylesheet" href="lesson.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <!--<button type="button" onclick="init()">Start</button>
+    <image src="./ASL.png" style="border-radius: 50%;"></image>-->
     <div id="title">ASLType</div>
-    
     <div id="topbar">
-        <div class="row">
-            <div id="charSelect">
-                <button class="enabled" id="letters">letters</button>
-                <button id="numbers">numbers</button>
-            </div>
-            <div class="spacer"></div>
-            <div id="timeSelect">
-                <button class="enabled" id="15s">15s</button>
-                <button id="30s">30s</button>
-                <button id="60s">60s</button>
-            </div>
-            <div class="spacer"></div>
-            <div id="statsMenu">
-                <button id="time">15s</button>
-                <button id="wpm">0wpm</button>
-                <button id="acc">0%</button>
-            </div>
-            <div class="spacer"></div>
-            <div id="trainSelect">
-                <button id="train">train</button>
-            </div>
+      <div class="row">
+        <div id="charSelect">
+          <button class="enabled" id="letters">letters</button>
+          <button id="numbers">numbers</button>
         </div>
-<<<<<<< HEAD
         <div class="spacer"></div>
         <div id="timeSelect">
           <button class="enabled" id="15s">15s</button>
@@ -56,15 +39,10 @@
           <button style="background-color: #8253da;" id="start">start</button>
         </div>
       </div>
-=======
->>>>>>> cd2a04f662a1639a01b3d7bc70c9d1e6064658f3
     </div>
-    
     <div id="camera"><video autoplay></video></div>
     <canvas style="display:none;" id="c" width="500" height="500"></canvas>
-    
     <div id="typeText">
-<<<<<<< HEAD
       <div class="word"><div class="letter done">p</div><div class="letter done">o</div><div class="letter done">o</div><div class="letter wrong">p</div>
       </div>
       <div class="word"><div class="letter">z</div><div class="letter">o</div><div class="letter">m</div>
@@ -75,39 +53,16 @@
       <div class="word">
         <div class="letter">1</div><div class="letter">5</div>
       </div>
-=======
-        <div class="word"><div class="letter done">p</div><div class="letter done">o</div><div class="letter done">o</div><div class="letter">p</div></div>
-        <div class="word"><div class="letter">z</div><div class="letter">o</div><div class="letter">m</div></div>
-        <div class="word"><div class="letter">o</div></div>
-        <div class="word"><div class="letter">1</div><div class="letter">5</div></div>
->>>>>>> cd2a04f662a1639a01b3d7bc70c9d1e6064658f3
     </div>
-    
     <div id="progress">
-        <p id="pTitle">Hold for 2 seconds</p>
-        <div class="container"> 
-            <div class="skill php"></div> 
-        </div>
+      <p id="pTitle">Hold for 2 seconds</p>
+      <div class="container"> 
+        <div class="skill php"></div> 
+      </div>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="lesson.js"></script>
-
-    <script>
-        numval = false; 
-
-        document.getElementById('numbers').addEventListener('click', function() {
-            numval = true; 
-            updateURL(); 
-        });
-    
-            document.getElementById('letters').addEventListener('click', function() {
-            numval = false; 
-            updateURL(); 
-        });
-        
-       
-    </script>
-</body>
+  </body>
 </html>

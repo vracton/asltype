@@ -42,25 +42,13 @@
     </div>
     <div id="camera"><video autoplay></video></div>
     <canvas style="display:none;" id="c" width="500" height="500"></canvas>
-    <div id="typeText">
-      <div class="word"><div class="letter done">p</div><div class="letter done">o</div><div class="letter done">o</div><div class="letter wrong">p</div>
-      </div>
-      <div class="word"><div class="letter">z</div><div class="letter">o</div><div class="letter">m</div>
-      </div>
-      <div class="word">
-        <div class="letter">o</div>
-      </div>
-      <div class="word">
-        <div class="letter">1</div><div class="letter">5</div>
-      </div>
-    </div>
+    <div id="typeText" style="overflow: hidden"></div>
     <div id="progress">
-      <p id="pTitle">Hold for 2 seconds</p>
+      <p id="pTitle">loading!</p>
       <div class="container"> 
-        <div class="skill php"></div> 
+        <div class="skill"></div> 
       </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="lesson.js"></script>

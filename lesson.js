@@ -37,9 +37,10 @@ const startStream = async (constraints) => {
   init();
 };
 
-const letters = "abcdefghijklmnopqrstuvwxyz".split("")
+const letters = "abcdefghiklnoqrsuvwxy".split("")
 const numbers = "0123456789".split("")
 let inGame = false
+let curLetter
 
 for (let i = 0;i<100;i++){
   let word = document.createElement("div")
@@ -49,6 +50,9 @@ for (let i = 0;i<100;i++){
     letter.classList.add("letter")
     letter.innerHTML = letters[Math.floor(Math.random()*letters.length)]
     word.appendChild(letter)
+    if (i==0&&j==0){
+      curLetter = letter
+    }
   }
   document.getElementById("typeText").appendChild(word)
 }
@@ -67,6 +71,9 @@ document.getElementById("letters").onclick = () => {
         letter.classList.add("letter")
         letter.innerHTML = letters[Math.floor(Math.random()*letters.length)]
         word.appendChild(letter)
+        if (i==0&&j==0){
+          curLetter = letter
+        }
       }
       document.getElementById("typeText").appendChild(word)
     }
@@ -87,6 +94,9 @@ document.getElementById("numbers").onclick = () => {
         letter.classList.add("letter")
         letter.innerHTML = numbers[Math.floor(Math.random()*numbers.length)]
         word.appendChild(letter)
+        if (i==0&&j==0){
+          curLetter = letter
+        }
       }
       document.getElementById("typeText").appendChild(word)
     }
@@ -138,36 +148,49 @@ document.getElementById("120s").onclick = () => {
     time = 120
   }
 }
-
+var numchar = 0, numCor = 0;
 document.getElementById("start").onclick = () => {
   if (!inGame){
     inGame = true
     document.getElementById("start").style.backgroundColor = "#292c2d"
     document.getElementById("time").style.fontWeight = "bold"
-    document.getElementById("wpm").style.fontWeight = "bold"
+    document.getElementById("cpm").style.fontWeight = "bold"
     document.getElementById("acc").style.fontWeight = "bold"
     document.getElementById("time").style.color = "#8253da"
-    document.getElementById("wpm").style.color = "#8253da"
+    document.getElementById("cpm").style.color = "#8253da"
     document.getElementById("acc").style.color = "#8253da"
+    document.getElementById("cpm").innerText = "0cpm";
+    document.getElementById("acc").innerText = "0%";
     let remainTime = time
+    document.getElementById("time").innerHTML = time+"s"
     const interval = setInterval(function(){
       remainTime--
-      document.getElementById("time").innerHTML = time+"s"
+      document.getElementById("time").innerHTML = remainTime+"s"
+      document.getElementById("cpm").innerText = Math.round(numchar*600/(time-remainTime))/10 + "cpm";
+      let acc = Math.round(numCor*10/(numchar))/10
+      if (isNaN(acc)){
+        acc=0
+      }
+      //if (numCor > 0 ) {
+        document.getElementById("acc").innerText = acc*100 + "%";
+      //}
       if (remainTime==0){
         inGame = false
         clearInterval(interval)
         document.getElementById("start").style.backgroundColor = "#8253da"
         document.getElementById("time").style.fontWeight = "normal"
-        document.getElementById("wpm").style.fontWeight = "normal"
+        document.getElementById("cpm").style.fontWeight = "normal"
         document.getElementById("acc").style.fontWeight = "normal"
         document.getElementById("time").style.color = "#474848"
-        document.getElementById("wpm").style.color = "#474848"
+        document.getElementById("cpm").style.color = "#474848"
         document.getElementById("acc").style.color = "#474848"
+        numchar = 0
+        numCor = 0
+        document.getElementById("pBar").style.width = "0%"
       }
     },1000)
   }
 }
-
 let aModel,
   nModel,
   webcam,
@@ -214,7 +237,7 @@ async function loop() {
   await predict();
   window.requestAnimationFrame(loop);
 }
-
+let lastLetter, numIters
 async function predict() {
   try {
     const prediction = await (isAlpha ? aModel : nModel).predict(canvas);
@@ -227,7 +250,36 @@ async function predict() {
       }
     }
     if (inGame){
-      document.getElementById("pTitle").innerHTML = classPrediction + " - Hold for 2 Seconds";
+      if (classPrediction == lastLetter){
+        numIters++
+      } else {
+        lastLetter = classPrediction
+        numIters = 1
+      }
+      if (numIters > 10 && classPrediction.toLowerCase()!="none"){
+        document.getElementById("pBar").style.width = ((numIters<=30?numIters:30)/30)*100+"%"
+        document.getElementById("pTitle").innerHTML = "hold for 0.5 seconds";
+      } else {
+        document.getElementById("pBar").style.width = "0%"
+        document.getElementById("pTitle").innerHTML = "waiting for input";
+      }
+      if (numIters>=30 && classPrediction.toLowerCase()!="none"){
+        console.log("h")
+        if (curLetter.innerText.toLowerCase()==classPrediction.toLowerCase()){
+          curLetter.classList.add("done")
+          numCor++
+        } else {
+          curLetter.classList.add("wrong")
+        }
+        numchar++
+        if (curLetter.nextSibling){
+          curLetter = curLetter.nextSibling
+          
+        } else {
+          curLetter = curLetter.parentElement.nextSibling.children[0]
+        }
+        numIters = 0
+      }
     } else {
       document.getElementById("pTitle").innerHTML = "ready to go!";
     }
